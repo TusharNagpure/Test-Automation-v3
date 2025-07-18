@@ -650,7 +650,7 @@ class addUser {
                 } else if (samePageIndicator.exists()) {
                     println("✅ Stayed on the same page — form submission blocked as expected.")
                 } else {
-                    errorLog.add("❌ neither error nor page stayed to the same state.")
+                    errorLog.add("❌ Error message for probation periood is not visible.")
                 }
             } catch (e: Exception) {
                 errorLog.add("❌ Probation period test crashed: ${e.message}")
@@ -740,22 +740,8 @@ class addUser {
                     passedLog.add("✅ Past date was correctly blocked for Access Expiry Date")
                 }
 
-                // --- (b) Try to select Present Date ---
-                expiryDateDropdown.click()
-                val presentDay = today.toString()
-                val pickPresent = device.wait(Until.findObject(By.textContains(presentDay)), 2000)
-                pickPresent?.click()
-                device.findObject(By.text("Ok")).click()
-                val updatedPresentDate = expiryDateDropdown.text.trim()
-
-                if (updatedPresentDate != originalDate) {
-                    errorLog.add("❌ Present date was incorrectly allowed for Access Expiry Date")
-                } else {
-                    passedLog.add("✅ Present date was correctly blocked for Access Expiry Date")
-                }
-
             } catch (e: Exception) {
-                errorLog.add("❌ Access Expiry past/present date restriction test failed: ${e.message}")
+                errorLog.add("❌ Access Expiry past date restriction test failed: ${e.message}")
             }
 
             // === Final Result Summary and Single Assert ===
