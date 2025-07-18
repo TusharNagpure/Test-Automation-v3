@@ -173,12 +173,10 @@ class addUser {
 
     @Test
     fun gotoAddUser() {
-        device.pressBack()
-        Thread.sleep(1000)
 
-        val userManagement = device.wait(Until.findObject(By.textContains("User Management")), 3000)
-        assert(userManagement != null) { "User Management menu not found" }
-        userManagement.click()
+        assert(device.wait(Until.hasObject(By.textContains("User Management")), 2000)) {
+            "User Management page not loaded"
+        }
 
         Thread.sleep(1000)
 
@@ -199,7 +197,6 @@ class addUser {
     fun addAValidUser() {
         val errorLog = mutableListOf<String>()
         val passedLog = mutableListOf<String>()
-
 
         // === 1. Add User with all the fields ===
         try {
@@ -444,6 +441,7 @@ class addUser {
 
     @Test
     fun addUserValidation() {
+        gotoAddUser()
         val errorLog = mutableListOf<String>()
         val passedLog = mutableListOf<String>()
 
